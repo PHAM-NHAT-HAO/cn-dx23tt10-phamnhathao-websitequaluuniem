@@ -1,6 +1,6 @@
 # cn-dx23tt10-phamnhathao-websitequaluuniem
 
-# Đồ án: Website Bán Quà Lưu Niệm
+# Đồ án: Xây Dựng Website Mua Bán Quà Lưu Niệm
 **Sinh viên thực hiện:** Phạm Nhật Hào
 **Lớp:** DX23TT10
 **Ngành:** Công nghệ thông tin
