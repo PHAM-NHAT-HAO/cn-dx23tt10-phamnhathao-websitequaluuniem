@@ -2,7 +2,7 @@
 **Ngày báo cáo:** 06/05/2026
 **Sinh viên thưc hiện:** Phạm Nhật Hào
 
-## 1. Công việc ddaxc thực hiện
+## 1. Công việc đã thực hiện
 - Xây dựng đề cương chi tiết cho đồ án.
 - Cấu trúc lại file báo cáo tiến độ để chuẩn bị cho giai đoạn lập trình.
 
