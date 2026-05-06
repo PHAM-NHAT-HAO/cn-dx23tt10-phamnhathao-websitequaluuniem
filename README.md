@@ -25,3 +25,5 @@ Dự án bao gồm 4 bảng chính:
 - **Tuần 1 (28/04/2026):** - Khởi tạo Repository và cấu trúc thư mục.
     - Thiết kế Database và chạy thành công các bảng trên HeidiSQL.
     - Cập nhật tài liệu hướng dẫn và mời giảng viên hướng dẫn.
+- ** Tuần 2 (06/05/2026):** - Xây dựng đề cương chi tiết cho đồ án.
+    - Cấu trúc lại file báo cáo tiến độ để chuẩn bị cho giai đoạn lập trình.
