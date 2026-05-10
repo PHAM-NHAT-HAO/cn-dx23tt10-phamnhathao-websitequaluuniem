@@ -1,0 +1,56 @@
+<?php
+//Kết nối database thông qua file cấu hình đã tạo
+include 'config.php';
+//Kiểmtra xem người dùng có nhấn nút "add_produt" hay chưa
+if (isset($_POST['add_product'])){
+    // Lấy dữ liệu từ các ô nhập liệu trong form à gán vào biến tương ứng
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $desc = $_POST['description'];
+    $image = $_POST['image']; // Tạm thời nhập tên file ảnh
+    $cat_id = $_POST['category_id']; //ID danh mục(Gấu bông, Móc khóa...)
+// Câu lẹnh SQL để thêm một dòng dữ liệu mới vào bảng product
+    
+$sql = "INSERT INTO products (name, price, description, image, category_id) VALUES('$name','$price','$desc','$image','$cat_id')";
+
+// Thực thi  câu lệnh SQL
+if (mysqli_query($conn,$sql)){
+    // Nếu thành công hiện thôg báo và chuyển hướng về trang chủ index.php
+    echo "<scrip>alert('Thêm sản phẩm thành công!'); window.location='index.php';</scrip>";
+}else {
+    //Nếu thất bại hiển thị lỗi kỹ thuật của MySQL
+    echo "Lỗi: " .mysqli_error($conn);
+
+}
+    
+}
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm sản phẩm mới</title>
+    <style>
+        /* Css đơn giản đê căn giữa và tạo khoảng cách cho form*/ 
+        form {width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;}
+        input, textarea, select {padding: 8px;}
+    </style>
+</head>
+<body>
+<h2 style="text-align: center;">Thêm sản phẩm mới</h2>
+<form method="POST">
+    <input type="text" name="name" placeholder="Tên sản phẩm" required>
+    <input type="number" name="price" placeholder="Giá tiền" required>
+    <textarea name="description" placeholder="Mô tả sản phẩm"></textarea>
+    <input type="text" name="image" placeholder="Tên file ảnh">
+    <select name="category_id">
+        <option value="1">Gấu bông</option>
+        <option value="2">Móc khóa</option>
+        <option value="3">Gốm sứ</option>
+    </select>
+    <button type="submit" name="add_product" style="backgroud:#2ecc71; color:white; border:none; padding:10px;">Lưu sản phẩm</button>
+    <a href="index.php" style="text-align:center;">Quay lại trang chủ</a>
+</form>
+</body>
+</html>
