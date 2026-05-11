@@ -31,3 +31,6 @@ Dự án bao gồm 4 bảng chính:
 - Kết nối thành công PHP với MySQL thông qua Laragon
 - Thiết kế giao diện hiển thị danh sách sản phẩm ('index.php') theo dạng lưới, tích hợp hình ảnh và định dạng giá tiền
 - Giải quyết lỗi hiển thị hình ảnh và lỗi cú pháp vòng lặp PHP
+**Tuần 3 (11/05/2026):**
+- Hoàn thành việc cập nhật nội dung Chương 1, 2, và 3 vào file báo cáo Word theo hướng dẫn của giảng viên.
+- Đã đẩy (Push) toàn bộ mã nguồn và file báo cáo lên GitHub.
