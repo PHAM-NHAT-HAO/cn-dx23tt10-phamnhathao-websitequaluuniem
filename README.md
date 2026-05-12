@@ -34,3 +34,5 @@ Dự án bao gồm 4 bảng chính:
 **Tuần 3 (11/05/2026):**
 - Hoàn thành việc cập nhật nội dung Chương 1, 2, và 3 vào file báo cáo Word theo hướng dẫn của giảng viên.
 - Đã đẩy (Push) toàn bộ mã nguồn và file báo cáo lên GitHub.
+**Tuần 3 (12/05/2026):**
+- Hoàn tất đề cương báo cáo đồ án và nộp lên trang học tập.
