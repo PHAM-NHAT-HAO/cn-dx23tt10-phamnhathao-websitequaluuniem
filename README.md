@@ -36,3 +36,5 @@ Dự án bao gồm 4 bảng chính:
 - Đã đẩy (Push) toàn bộ mã nguồn và file báo cáo lên GitHub.
 **Tuần 3 (12/05/2026):**
 - Hoàn tất đề cương báo cáo đồ án và nộp lên trang học tập.
+**Tuần 3 (13/05/2026):**
+- Hoàn thiện trang chi tiết sản phẩm và sửa lỗi hiển thị

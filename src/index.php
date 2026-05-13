@@ -51,6 +51,9 @@ if (mysqli_num_rows($result)>0)
             <button style='backgroud: #3498db; color: white; border:none; padding:5px 10px; cursor:pointer; border-radius: 4px;'>
                 Thêm vào giỏ hàng
             </button>
+            <a href="product_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">
+                Xem chi tiết
+            </a>
         </div>
         <?php
         }     
