@@ -12,3 +12,9 @@
 **Ngày báo cáo:** 13/05/2026
 ## 1. Công việc đã thực hiện
 - Hoàn thiện trang chi tiết sản phẩm và sửa lỗi hiển thị
+# Báo cáo tiến độ Tuần 3
+**Ngày báo cáo:** 15/05/2026
+## 1. Công việc đã thực hiện
+- Xây dựng chức năng Tìm kiếm (Search) thông minh.
+- Xử lý logic "Không tìm thấy kết quả".
+- Làm chủ giao diện Bootstrap. 

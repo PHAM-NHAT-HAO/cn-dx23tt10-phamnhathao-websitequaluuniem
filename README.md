@@ -37,4 +37,8 @@ Dự án bao gồm 4 bảng chính:
 **Tuần 3 (12/05/2026):**
 - Hoàn tất đề cương báo cáo đồ án và nộp lên trang học tập.
 **Tuần 3 (13/05/2026):**
-- Hoàn thiện trang chi tiết sản phẩm và sửa lỗi hiển thị
+- Hoàn thiện trang chi tiết sản phẩm và sửa lỗi hiển thị.
+**Tuần 3 (15/05/2026):**
+- Xây dựng chức năng Tìm kiếm (Search) thông minh.
+- Xử lý logic "Không tìm thấy kết quả".
+- Làm chủ giao diện Bootstrap. 
