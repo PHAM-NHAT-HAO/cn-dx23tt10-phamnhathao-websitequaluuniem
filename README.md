@@ -43,3 +43,7 @@ Dự án bao gồm 4 bảng chính:
     - Xây dựng chức năng Tìm kiếm (Search) thông minh.
     - Xử lý logic "Không tìm thấy kết quả".
     - Làm chủ giao diện Bootstrap. 
+- **Tuần 3 (16/05/2026):**
+    - Xây dựng luồng xử lý Giỏ hàng
+    - Cập nhật và tạo file mới add_to_cart_php , cart.php.
+    - Cập nhật nút "Thêm vào giỏ hàng" từ thẻ <button> sang thẻ <a> để truyền tham số id chính xác sang file xử lý.

@@ -15,7 +15,7 @@ $product = mysqli_fetch_assoc($result);
 <html lang="vi">
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $product['NAME']; ?></title>
+        <title><?php echo $product['name']; ?></title>
         <!--Nhúng thư viện Bootstrap để giao diện đẹp hơn -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     </head>
@@ -40,7 +40,8 @@ $product = mysqli_fetch_assoc($result);
                     <p class="mt-4 text-muted"><strong>Mô tả:</strong><?php echo $product['description'];  ?></p>
                     <!-- In số lượng còn trong kho-->
                     <p><strong>Số lượng còn:</strong> <?php echo $product['stock_quantity']; ?></p>
-                    <button class="btn btn-primary btn-lg px-5">Thêm vào giỏ hàng</button>
+                    <a href="add_to_cart.php?id=<?php echo $product['id']; ?>" class="btn btn-danger btn-lg py-3 px-5 rounded-pill fw-bold shadow-sm">
+                        <i class="bi bi-cart-plus"></i>Thêm vào giỏ hàng</a>
 
                 </div>
 

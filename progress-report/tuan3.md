@@ -22,3 +22,10 @@
 - Xây dựng chức năng Tìm kiếm (Search) thông minh.
 - Xử lý logic "Không tìm thấy kết quả".
 - Làm chủ giao diện Bootstrap. 
+# Báo cáo tiến độ Tuần 3
+**Ngày báo cáo:** 16/05/2026
+
+## 1. Công việc đã thực hiện
+- Xây dựng luồng xử lý Giỏ hàng
+- Cập nhật và tạo file mới add_to_cart_php , cart.php.
+- Cập nhật nút "Thêm vào giỏ hàng" từ thẻ <button> sang thẻ <a> để truyền tham số id chính xác sang file xử lý.
