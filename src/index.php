@@ -89,20 +89,20 @@ if (mysqli_num_rows($result)>0):?>
 
 
 <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100 shadow-sm border-0" style="border-radius: 15px; overflow: hidden;">
-            <img src='images/<?php echo $row["image"];?>' class"card-img-top" alt='<?php echo $row["name"];?>' style=' height:200px; object-fit:cover;'>
-    <div class="card-body d-flex flex-column bg-white text-center">
-            <h3 class="card-title fw-bold text-dark mb-2"><?php echo $row["name"]; ?></h3>
-            <p class="card-text text-danger fw-bold mb-3" style='color: #e74c3c; font-weight: bold;'>
+            <div class="card h-100 d-flex flex-column shadow-sm rounded">
+            <img src='images/<?php echo $row["image"];?>' class="card-img-top img-fluid rounded " alt='<?php echo $row["name"];?>' style=" max-height: 250px; object-fit: cover;">
+    <div class="card-body d-flex flex-column bg-white text-center flex-grow-1">
+            <h3 class="card-title fw-bold text-primary "><?php echo $row["name"]; ?></h3>
+            <p class="card-text text-danger fw-bold" style='color: #e74c3c; font-weight: bold;'>
                 <?php echo number_format($row["price"],0,',','.'); ?> VNĐ
             </p>
             <p style='font-size: 0.9em; color: #120304;'><?php echo $row["description"];?></p>
-            <div class="mt-auto">
-            <button style='background: #e7111f; color: black; border:none ; padding:5px 10px; cursor:pointer; border-radius: 5px;'>
-                Thêm vào giỏ hàng
-            </button>
-            <a href="product_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">
-                Xem chi tiết</a>
+            <div class="d-flex gap-2 mt-auto">
+          <a href="add_to_cart.php?id=<?php echo $row['id'] ?>" class="btn btn-primary flex-fill d-flex align-items-center justify-content-content text-nowrap py-2 " style="height: 42px;">
+            <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ hàng
+          </a>
+            <a href="product_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-primary flex-fill d-flex align-items-center justify-content-content text-nowrap py-2 " style="height: 42px; ">
+                Chi tiết</a>
         </div>
 </div>
 </div>

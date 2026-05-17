@@ -47,3 +47,11 @@ Dự án bao gồm 4 bảng chính:
     - Xây dựng luồng xử lý Giỏ hàng
     - Cập nhật và tạo file mới add_to_cart_php , cart.php.
     - Cập nhật nút "Thêm vào giỏ hàng" từ thẻ <button> sang thẻ <a> để truyền tham số id chính xác sang file xử lý.
+- **Tuần 3 (16/05/2026):**
+    - Hoàn thiện chức năng cập nhật giỏ hàng (update_cart.php).
+      - xây dựng thành công logic giảm số lượng sản phẩm
+      - Tự động kiểm tra và xóa bỏ sản phẩm khỏi giỏ hàng nếu số lượng giảm xuống bằng không
+      - Gắn hộp thoại xác nhận JavaScript(confirm)trước khi xóa để tăng trải nghiệm người dùng.
+    - Tối ưu hóa UI/UX trang chủ
+      - Thay đổi nút "Thêm vào giỏ hàng" từ thẻ button tĩnh thành thẻ liên kết kết nối trực tiếp với file logic add_to_cart.php
+      - Áp dụng thuộc tính Flexbox & Grid của Bootstrap 5.

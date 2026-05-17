@@ -45,7 +45,19 @@ session_start();
                             <td><img src="images/<?php echo $item['image']; ?>" style="width: 80px; height: 80px; object-fit: cover;" class="rounded"></td>
                             <td class = "fw-bold"><?php echo $item['name']; ?></td>
                             <td class="text-danger"><?php echo number_format($item['price'], 0, ',', '.'); ?></td>
-                            <td><?php echo $item['quantity']; ?></td>
+                            <td>
+                            <a href="update_cart.php?id=<?php echo $id; ?>&action=decrease" class="btn btn-outline-secondary me-2" >-</a>
+                            <span><?php echo $item['quantity']; ?></span>
+                            <a href="add_to_cart.php?id=<?php echo $id; ?>" class="btn btn-outline-secondary me-2">+</a>
+
+                        </td>
+                            <td>
+                                <a href="update_cart.php?id=<?php echo $id; ?>&action=delete" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng');" >
+                                    <i class="bi bi-trash"></i>Xóa
+                                </a>
+                            </td>
+                        
+                        
                             <td class="text-danger fw-bold" ><?php echo number_format($subtotal, 0, ',', '.'); ?></td>
                         </tr>
                         <?php endforeach; ?>
