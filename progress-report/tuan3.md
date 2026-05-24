@@ -40,3 +40,4 @@
 - Tối ưu hóa UI/UX trang chủ
       - Thay đổi nút "Thêm vào giỏ hàng" từ thẻ button tĩnh thành thẻ liên kết kết nối trực tiếp với file logic add_to_cart.php
       - Áp dụng thuộc tính Flexbox & Grid của Bootstrap 5.
+      

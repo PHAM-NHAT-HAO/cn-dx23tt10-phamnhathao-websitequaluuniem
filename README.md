@@ -55,3 +55,9 @@ Dự án bao gồm 4 bảng chính:
     - Tối ưu hóa UI/UX trang chủ
       - Thay đổi nút "Thêm vào giỏ hàng" từ thẻ button tĩnh thành thẻ liên kết kết nối trực tiếp với file logic add_to_cart.php
       - Áp dụng thuộc tính Flexbox & Grid của Bootstrap 5.
+- **Tuần 4 (24/05/2026):**
+    - Hoàn thành xong Mục 3.2: Phân tích ca sử dụng (Use Case) trong Chương 3.
+
+    - Thiết kế xong sơ đồ Ca sử dụng (Use Case Diagram) tổng thể cho chức năng quản lý giỏ hàng trên công cụ Draw.io theo đúng chuẩn ngôn ngữ mô hình hóa UML.
+
+    - Xây dựng đầy đủ Bảng đặc tả chi tiết ca sử dụng (Use Case Specification), mô tả rõ ràng luồng sự kiện chính và luồng sự kiện thay thế (thêm, bớt, xóa bộ nhớ đệm) của hệ thống
