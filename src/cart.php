@@ -66,7 +66,7 @@ session_start();
                 <div class="text-end mt-4">
                     <h4>Tổng tiền thanh toán: <span class="text-danger fw-bold"><?php echo number_format($total_money, 0, ',', '.'); ?> VNĐ</span></h4>
                     <a href="index.php" class="btn btn-outline-secondary me-2" >Tiếp tục mua sắm</a>
-                    <button class="btn btn-success px-4">Thanh toán ngay</button>
+                    <a href="checkout.php" class="btn btn-success px-4">Thanh toán ngay</a>
                 </div>
 
             </div>

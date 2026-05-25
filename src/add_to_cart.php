@@ -41,6 +41,5 @@ if ($id>0)
         }
     }
 // Sau khi thêm xong, lập tức chuyển hướng khách quay lại trang giỏ hàng để xem
-header("Location: cart.php");
-exit();
+header("Location: index.php");
 ?>

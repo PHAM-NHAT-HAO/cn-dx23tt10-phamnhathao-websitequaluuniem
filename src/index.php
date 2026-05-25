@@ -1,6 +1,6 @@
 <?php
 include 'config.php';
-
+session_start();
 // Tạo một cái thùng rỗng tên là $search  để chứa từ khóa người dùng gõ
 $search = "";
 // Kiểm tra xem người dùng có nhấn nút "Tìm" chưa?
@@ -25,6 +25,7 @@ if($search !=""){
 //Ra lệnh cho máy tính chạy câu lệnh SQL trên và cất kết quả vào biến $result
 $result = mysqli_query($conn, $sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -56,20 +57,67 @@ $result = mysqli_query($conn, $sql);
 </head>
 <body class="bg-light text-dark">
  
-    <div class="container mt-5">
-    <h1 class="text-center mb-4 " style="color: #81260a">Sản phẩm quà lưu niệm</h1>
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-6">
-            <form action="index.php" method="GET" class="d-flex">
+   
+<?php
+  // Tính tổng số lượng sản phẩm đang có trong giỏ hàng để hiển thị lên icon
+  $total_items =0;
+  if(isset($_SESSION['cart'])){
+    foreach ($_SESSION['cart'] as $item){
+        $total_items += $item['quantity'];
+    }
+  }
+  ?>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+        <!-- logo hoặc tên cửa hàng bên trái -->
+         <a class="navbar-brand fw-bold" href="index.php">
+            <i class="bi bi-gift-fill text-warning me-2"></i>
+            Shop Quà Lưu Niệm
+         </a>
+        <!-- Nút bấm thu gọn khi xem trên điện thoại -->
+         <button class="navbar-expand-lg navbar-toggler" type="button" data-bs-toggler="collapse" data-bs-target="#navbarNav" >
+            <span class="navbar-toggler-icon"></span>
+         </button>
+         <!-- Các danh mục di chuyển và nút giỏ hàng bên phải -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.php">Trang chủ</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> Sản phẩm</a>
+
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liên hệ</a>
+
+                </li>
+
+            </ul>
+            <form action="index.php" method="GET" class="d-flex mx-auto mb-2 mb-lg-0" style="width: 45%;">
                 <input type="text" name="search" class="form-control me-2" placeholder="Tìm quà tặng (gấu bông, móc khóa...)" 
                 value="<?php echo isset($_GET['search']) ? $_GET['search']:''; ?>">
                 <button type="submit" class="btn btn-primary px-4">Tìm</button>
             </form>
+            <!-- Khối giỏ hàng nằm gọn gàng trên thanh tiêu đề --> 
+             <div class="text-end mb-4">
+                <a href="cart.php" class="btn btn-outline-light position-relative">
+                    <i class="bi bi-cart3 me-3"></i>Giỏ hàng
+                    <!-- Nếu có sản phẩm trong giỏ thì hiện số lượng màu đỏ --> 
+                     <?php if (isset($total_items)&& $total_items > 0): ?>
+                        <span class ="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <?php echo $total_items; ?>
+                        </span>
+                        <?php endif; ?>
+                </a>
 
-        </div>
+             </div>
+
+          </div>
 
     </div>
-
+  </nav>
   
 <?php
 // Kiểm tra xem trong Database có dòng dữ liệu nào không
@@ -97,11 +145,11 @@ if (mysqli_num_rows($result)>0):?>
                 <?php echo number_format($row["price"],0,',','.'); ?> VNĐ
             </p>
             <p style='font-size: 0.9em; color: #120304;'><?php echo $row["description"];?></p>
-            <div class="d-flex gap-2 mt-auto">
-          <a href="add_to_cart.php?id=<?php echo $row['id'] ?>" class="btn btn-primary flex-fill d-flex align-items-center justify-content-content text-nowrap py-2 " style="height: 42px;">
+            <div class="text-center d-flex gap-2 mt-auto pt-3">
+          <a href="add_to_cart.php?id=<?php echo $row['id'] ?>" class="btn btn-primary flex-fill d-flex align-items-center justify-content-center text-nowrap py-2 " style="height: 42px;">
             <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ hàng
           </a>
-            <a href="product_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-primary flex-fill d-flex align-items-center justify-content-content text-nowrap py-2 " style="height: 42px; ">
+            <a href="product_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-primary flex-fill d-flex align-items-center justify-content-center text-nowrap py-2 " style="height: 42px; ">
                 Chi tiết</a>
         </div>
 </div>
