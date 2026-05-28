@@ -1,4 +1,4 @@
-# Báo cáo tiến độ Tuần 3
+# Báo cáo tiến độ Tuần 5
 **Ngày báo cáo:** 25/05/2026
 **Sinh viên thưc hiện:** Phạm Nhật Hào
 
@@ -7,3 +7,10 @@
 - Thay cụm tìm kiếm từ vị trí rời rạc phía trên đưa vào chính giữa thanh tiêu đề, giúp tối ưu không gian.
 - Thiết kế xong khối Badge trên icon Giỏ hàng ở thanh tiêu đề, tự động tính tổng số lượng sản phẩm và nhảy số lượng thực tế mỗi khi khách hàng bấm thêm hàng
 - Chèn nút 'Thanh toán ngay' (thẻ <a>) liên kết trực tiếp để dẫn luồng xử lý sang bước tiếp theo
+**Ngày báo cáo:** 28/05/2026
+**Sinh viên thưc hiện:** Phạm Nhật Hào
+## 1. Công việc đã thực hiện
+- Xây dựng phân hệ bảo mật Đăng nhập (`login.php`).
+- Phát triển Trang tổng quan Admin (`admin.php`).
+- Hoàn thiện luồng Thanh toán và Trừ kho tự động (`checkout.php` & `process_checkout.php`).
+- Khắc phục chuỗi lỗi vận hành trên Form Admin (`admin_add_product.php`)

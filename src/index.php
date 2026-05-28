@@ -31,7 +31,7 @@ $result = mysqli_query($conn, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách sản phẩm</title>
+    <title>Shop Quà Lưu Niệm Nhật Hào | Ho Chi Minh City</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
@@ -53,6 +53,61 @@ $result = mysqli_query($conn, $sql);
          .product-card:hover{transform: translateY(-5px);}
          .card { transition: transform 0.3s;}
          .card:hover {transform: translateY(-10px);}
+
+         /* Style cho thanh menu chính */
+         .main-menu{
+            list-style: none;
+            display: flex;
+            background-color: #323233;
+            padding: 10px 20px;
+            align-items: center;
+         }
+         .main-menu > li {
+            position: relative;
+
+         }
+         .main-menu > li > a {
+            display: block;
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: bold;
+         }
+
+        /* Đoạn xử lý ẩn/hiện khi rê chuột */
+        
+        /* mặc định ẩn menu con đi */
+    .dropdown-menu{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #f8dede;
+        min-width: 180px;
+        box-shadow: 0px 8px 16px rgba(0,0,0,0.15);
+        list-style: none;
+        padding: 10px 0;
+        border-radius: 4px;
+        z-index: 999; /* Đảm bảo menu con đè lên trên các hình ảnh sản phẩm phía dưới */
+        display: none; /*Ẩn đi */
+    }
+    .dropdown-menu li a {
+        color: #333333;
+        padding: 10px 20px;
+        text-decoration: none;
+        display: block;
+        font-size: 14px;
+        text-align: left;
+        transition: background 0.2s;
+    }
+    /* hiệu ứng khi rê chuột vào từng mục con */
+    .dropdown-menu li a:hover{
+        background-color: #535455
+        color: #007bff;
+    }
+    /*khi rê chuọt vào thẻ li có lớp .dropdown -> hiện menu con lên */
+    .dropdown:hover .dropdown-menu{
+        display: block;
+    }
     </style>
 </head>
 <body class="bg-light text-dark">
@@ -80,17 +135,25 @@ $result = mysqli_query($conn, $sql);
          </button>
          <!-- Các danh mục di chuyển và nút giỏ hàng bên phải -->
           <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="main-menu me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" href="index.php">Trang chủ</a>
 
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"> Sản phẩm</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="products_page.php"> Sản phẩm</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="products_page.php?category_id=1">🧸 Gấu bông</a></li>
+                        <li><a href="products_page.php?category_id=2">🎁 Quà tặng</a></li>
+                        <li><a href="products_page.php?category_id=3">💍 Trang sức</a></li>
+                        <li><a href="products_page.php?category_id=4">🎀 Phụ kiện</a></li>
+
+                    </ul>
+
 
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Liên hệ</a>
+                    <a class="nav-link" href="contact.php">Liên hệ</a>
 
                 </li>
 
@@ -101,8 +164,8 @@ $result = mysqli_query($conn, $sql);
                 <button type="submit" class="btn btn-primary px-4">Tìm</button>
             </form>
             <!-- Khối giỏ hàng nằm gọn gàng trên thanh tiêu đề --> 
-             <div class="text-end mb-4">
-                <a href="cart.php" class="btn btn-outline-light position-relative">
+             <li class="nav-item ms-lg-3">
+                <a href="cart.php" class="btn btn-outline-light position-relative px-3 py-2">
                     <i class="bi bi-cart3 me-3"></i>Giỏ hàng
                     <!-- Nếu có sản phẩm trong giỏ thì hiện số lượng màu đỏ --> 
                      <?php if (isset($total_items)&& $total_items > 0): ?>
@@ -112,7 +175,7 @@ $result = mysqli_query($conn, $sql);
                         <?php endif; ?>
                 </a>
 
-             </div>
+             </li>
 
           </div>
 

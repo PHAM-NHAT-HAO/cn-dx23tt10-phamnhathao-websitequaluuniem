@@ -1,0 +1,236 @@
+<?php
+session_start();
+if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !=true)
+    {
+        header("Location: login.php");
+        exit();
+    }
+include 'config.php';
+
+// Xử lý logic back-End để lấy dữ liệu thống kê
+// Thống kê tổng doanh thu từ tất cả các đơn hàng trong bảng 'orders'
+$query_revenue = "SELECT SUM(total_amount) AS total_revenue FROM orders";
+$result_revenue = mysqli_query($conn, $query_revenue);
+$row_revenue = mysqli_fetch_assoc($result_revenue);
+$total_revenue = $row_revenue['total_revenue'] ? $row_revenue['total_revenue'] : 0;
+ 
+//Thống kê số lượng đơn hàng hiện có
+$query_orders_count = "SELECT COUNT(id) AS total_orders FROM orders";
+$result_orders_count = mysqli_query($conn, $query_orders_count);
+$row_orders_count = mysqli_fetch_assoc($result_orders_count);
+$total_orders = $row_orders_count['total_orders'] ? $row_orders_count['total_orders'] : 0;
+
+//Thống kê số lượng quà tặng hiẹn có trong kho (tổng cột stock_quantity)
+$query_stock = "SELECT SUM(stock_quantity) AS total_stock FROM products";
+$result_stock = mysqli_query($conn, $query_stock);
+$row_stock = mysqli_fetch_assoc($result_stock);
+$total_stock = $row_stock['total_stock'] ? $row_stock['total_stock'] : 0;
+
+//Lấy danh sách sản phẩm và số lượng tồn kho để hiển thị lên bảng quản lý
+$query_products = "SELECT p.*, c.name AS category_name
+                   FROM products p
+                   LEFT JOIN categories c ON p.category_id = c.id";
+$result_products = mysqli_query($conn, $query_products);
+
+// Lấy danh sách toàn bộ đơn hàng mới nhất
+$query_all_orders = "SELECT * FROM orders ORDER BY id DESC";
+$result_all_orders = mysqli_query($conn, $query_all_orders);
+
+// Xử lý chức năng bấm nút xóa đơn hàng trực tiếp 
+if(isset($_GET['delete_order']))
+    {
+        $order_id_to_delete = intval($_GET['delete_order']);
+
+        //chạy lệnh xóa đơn hàng(bảng order_details tự động sạch theo nhờ CASCADE)
+        $query_delete = "DELETE FROM orders WHERE id = $order_id_to_delete";
+        if (mysqli_query($conn, $query_delete))
+            {
+                // Xóa xong tải lại trang để cập nhật số liệu mới liền
+                echo "<script>alert('Đã xóa đơn thành công!'); window.location.href='admin.php';</script>";
+            }
+    }
+?>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản trị hệ thống - Shop Quà Lưu Niệm</title>
+    <style>
+* {box-sizing: border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+
+body { background-color: #f4f6f9; color: #333; display: flex; }
+/* giao diện thanh menu trái*/
+.sidebar { width: 260px; height: 100vh; background-color: #2c3e50; color: #fff; padding:20px; position: fixed; }
+.sidebar h2 {text-align: center; margin-bottom: 30px; font-size: 22px; color: #3498db;}
+.sidebar ul {list-style: none; }
+.sidebar ul li {padding: 15px 10px; border-bottom: 1px solid #34495e; cursor: pointer;}
+.sidebar ul li.active {background-color: #3498db; border-radius: 4px; }
+.sidebar ul li a {color: #fff; text-decoration: none; display: block; }
+
+/*Vùng nội dung chính bên phải */
+.main-content {margin-left: 260px; padding: 40px; width: calc(100% - 260px); }
+.header {margin-bottom: 30px; }
+.header h1 {font-size: 28px; color: #2c3e50; }
+
+/* bảng hiển thị thẻ số liệu thống kê */
+.dashboard-cars {display: grid; grid-template-columns; repeat(3, 1fr); gap:20px; margin-bottom:40px; }
+.cart {background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid #3498db; }
+.cart.stock {border-left-color: #e67e22; }
+.cart h3 {font-size: 14px; text-transform: uppercase; color: #7f8c8d; margin-bottom: 10px; }
+.cart p {font-size: 24px; font-wigth: bold; color: #2c3e50; }
+
+/* Giao diện quản lý sản phẩm/ Kho hàng */
+.table-section {background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.table-section h2 {margin-bottom: 20px; font-size: 20px; color: #2c3e50; }
+table {width: 100%; border-collapse: collapse; text-align: left; }
+th, td {padding: 12px 15px; border-bottom: 1px solid #ddd; }
+th {background-color: #f8f9fa; color: #2c3e50; font-weight: 600; }
+tr:hover {background-color: #f1f2f6; }
+
+/*Nhãn trạng thái kho hàng */
+.badge {padding: 5px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+.badge.success {background-color: #d4edda; color: #155724; }
+.badge.danger {background-color: #f8d7da; color: #721c24; }
+
+
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>QUẢN TRỊ VIÊN</h2>
+        <ul>
+            <li class="active"><a href="#">📊 Bảng Điều Khiển</a></li>
+            <li><a href="index.php" target="_blank">🏠 Xem Trang Chủ Web </a></li>
+            <li ><a href="login.php?action=logout" style="color: #e74c3c; font-weight: bold;">🚪 Đăng Xuất</a></li>
+        </ul>
+
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <h1>Tổng Quan Hệ Thống Bán Hàng</h1>
+            <p>Chào mừng bạn quay trở lại hệ thống quản lý cửa hàng</p>
+
+        </div>
+        <div class="dashborad-cards">
+            <div class="card revnue">
+                <h3>💰 Tổng Doanh Thu</h3>
+                <P></P>
+                <p><?php echo number_format($total_revenue, 0, ',', '.'); ?> VNĐ</p>
+
+            </div>
+            <div class="cart">
+                <h3>📦 Đơn Hàng Đã Nhận</h3>
+                <p><?php echo $total_orders; ?> Đơn Hàng</p>
+
+            </div>
+            <div class="cart stock">
+                <h3>🧸 Tổng Hàng Trong Kho</h3>
+                <p><?php echo $total_stock; ?> Sản Phẩm</p>
+
+            </div>
+        </div>
+        <div class="table_section">
+            <h2>📋 Thống Kê Chi Tiết Tồn Kho & Sản Phẩm</h2>
+            <table>
+                <thead>
+                    <tr>
+                    <th>Mã SP</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên Quà Lưu Niệm</th>
+                    <th>Danh Mục</th>
+                    <th>Giá Bán</th>
+                    <th>Số Lượng Kho</th>
+                    <th>Trạng Thái</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while($product = mysqli_fetch_assoc($result_products)): ?>
+                        <tr>
+                            <td>#<?php echo $product['id']; ?></td>
+                            <td><img src="img/<?php echo $product['image']; ?>" width="40" height="40" style="border-radius:4px; object-fit:cover;" onerror="this.src='https://placehold.co/40'"></td>
+                            <strong><td><?php echo $product['name']; ?></td></strong>
+                            <td><?php echo $product['category_name']; ?></td>
+                            <td><?php echo number_format($product['price'], 0, ',', '.'); ?>đ</td>
+                            <strong><td><?php echo $product['stock_quantity']; ?>cái</td></strong>
+                            <td>
+                                <?php if($product['stock_quantity']>10): ?>
+                                    <span class="badge success">Còn hàng dồi dào</span>
+                                <?php else: ?>
+                                    <span class="badge danger">Sắp hết hàng!</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endwhile; ?>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="table-section" style="margin-top: 30px; border-left: 5px solid #e74c3c; ">
+    <h2>🛍️ Danh Sách Đơn Hàng Đã Đặt</h2>
+    <table>
+        <thread>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Thông tin khách hàng</th>
+                <th>Trạng thái</th>
+                <th>Tổng tiền</th>
+                <th>Chi tiết (Mã SP x Số lượng)</th>
+                <th>Hành động</th>
+            </tr>
+        </thread>
+        <tbody>
+            <?php while($ord = mysqli_fetch_assoc($result_all_orders)): ?>
+            <tr>
+                <td><strong>#<?php echo $ord['id']; ?></strong></td>
+                <td>
+                            <div style="font-size: 14px; line-height: 1.6;">
+                                👤 <strong><?php echo $ord['customer_name'] ? $ord['customer_name'] : 'Chưa có tên'; ?></strong><br>
+                                📞 SĐT: <?php echo $ord['customer_phone'] ? $ord['customer_phone'] : 'Chưa có'; ?><br>
+                                📍 ĐC: <?php echo $ord['customer_address'] ? $ord['customer_address'] : 'Chưa có'; ?>
+                                📝 Ghi chú: <span style="color: #e67e22;"><?php echo $ord['customer_note'] ? $ord['customer_note'] : 'Không có'; ?></span>
+                            </div>
+                        </td>
+                <td><span class="badge" style="background-color: #ffeaa7; color: #d63031; ">Chờ xử lý</span></td>
+                <td style="color: #2ecc71; font-weight: bold;"><?php echo number_format($ord['total_amount'], 0, ',', '.'); ?></td>
+                <td>
+                    <ul style="list-style: none; font-size: 14px; color: #555; ">
+                        <?php 
+                        // chạy câu truy vấn con để lôi các món lên bảng order_details của đơn hàng
+                        $current_order_id = $ord['id'];
+                        $query_items = "SELECT od.*, p.name FROM order_details od
+                                       JOIN products p ON od.product_id = p.id
+                                       
+                                       WHERE od.order_id = $current_order_id";
+                        $result_items = mysqli_query($conn, $query_items);
+                        while($item = mysqli_fetch_assoc($result_items))
+                        {
+                            echo "<li>•" . $item['name'] . " (SL: " . $item['quantity'] . ")</li>";
+                        }
+                
+                        ?>
+
+                    </ul>
+                </td>
+                <td>
+                    <a href="admin.php?delete_order=<?php echo $ord['id']; ?>"
+                    onclick="return confirm('Bạn có chắc muốn xóa đơn này không?');"
+                    style="background-color: #e7ac3c; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 13px; font-weight: bold;">
+                       🗑️ Xóa Đơn 
+                    </style>
+                    </a>
+                </td>
+            </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+
+</div>
+
+        </div>
+
+    </div>
+    
+</body>
+</html>

@@ -66,3 +66,20 @@ Dự án bao gồm 4 bảng chính:
     - Thay cụm tìm kiếm từ vị trí rời rạc phía trên đưa vào chính giữa thanh tiêu đề, giúp tối ưu không gian.
     - Thiết kế xong khối Badge trên icon Giỏ hàng ở thanh tiêu đề, tự động tính tổng số lượng sản phẩm và nhảy số lượng thực tế mỗi khi khách hàng bấm thêm hàng
     - Chèn nút 'Thanh toán ngay' (thẻ <a>) liên kết trực tiếp để dẫn luồng xử lý sang bước tiếp theo
+- **Tuần 5 (27-28/05/2026):**
+- **Phân hệ Khách hàng (Frontend)**
+- `index.php`: Giao diện chính hiển thị danh sách sản phẩm động lấy từ cơ sở dữ liệu. Thiết kế thanh tìm kiếm tập trung, tích hợp cụm Dropdown phân loại danh mục và Badge hiển thị số lượng giỏ hàng thực tế.
+- `contact.php`: Trang liên hệ áp dụng CSS Flexbox chia hai cột (Thông tin cửa hàng và Form gửi góp ý).
+- `cart.php`: Trang quản lý danh sách các món quà đã chọn, hỗ trợ tính tổng tiền.
+- `checkout.php`: Trang hiển thị form thu thập thông tin giao hàng (Họ tên, SĐT, Địa chỉ, Ghi chú) và lựa chọn phương thức thanh toán.
+- `thanhtoan.html`: Giao diện tĩnh hỗ trợ định hình quy trình thanh toán.
+
+- **Phân hệ Quản trị (Backend Admin)**
+- `login.php`: Trang đăng nhập bảo mật dành cho Quản trị viên (Kiểm tra tài khoản hệ thống, khởi tạo và lưu trữ trạng thái với `$_SESSION['admin_logged_in']`).
+- `admin.php`: Bảng điều khiển (Dashboard) trung tâm của Admin. Tự động thống kê các chỉ số kinh doanh cốt lõi bằng các câu lệnh SQL nâng cao (`SUM`, `COUNT`).
+- `admin_add_product.php`: Giao diện form nạp sản phẩm mới vào hệ thống (Quản lý tên, giá, mô tả, ảnh, danh mục và hàng tồn kho).
+
+- **File xử lý Logic & Dữ liệu ngầm**
+- `config.php`: Khởi tạo kết nối kết nối giữa mã nguồn PHP và cơ sở dữ liệu MySQL.
+- `process_checkout.php`: File xử lý hậu đài quan trọng nhất của luồng mua hàng. Nhận dữ liệu đơn, chèn thông tin vào bảng `orders`, giải nén giỏ hàng để ghi nhận vào `order_details`, và tự động trừ số lượng hàng tồn kho.
+- `add_to_cart.php` & `update_cart.php`: Xử lý thêm mới và cập nhật số lượng sản phẩm trong giỏ hàng.

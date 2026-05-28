@@ -2,24 +2,25 @@
 //Kết nối database thông qua file cấu hình đã tạo
 include 'config.php';
 //Kiểmtra xem người dùng có nhấn nút "add_produt" hay chưa
+session_start();
 if (isset($_POST['add_product'])){
     // Lấy dữ liệu từ các ô nhập liệu trong form à gán vào biến tương ứng
     $name = $_POST['name'];
     $price = $_POST['price'];
-    $desc = $_POST['description'];
+    $description = $_POST['description'];
     $image = $_POST['image']; // Tạm thời nhập tên file ảnh
     $cat_id = $_POST['category_id']; //ID danh mục(Gấu bông, Móc khóa...)
 // Câu lẹnh SQL để thêm một dòng dữ liệu mới vào bảng product
     
-$sql = "INSERT INTO products (name, price, description, image, category_id) VALUES('$name','$price','$desc','$image','$cat_id')";
+$sql = "INSERT INTO products (name, price, description, image, category_id) VALUES('$name','$price','$description','$image','$cat_id')";
 
 // Thực thi  câu lệnh SQL
 if (mysqli_query($conn,$sql)){
     // Nếu thành công hiện thôg báo và chuyển hướng về trang chủ index.php
-    echo "<scrip>alert('Thêm sản phẩm thành công!'); window.location='index.php';</scrip>";
+    echo "<script>alert('Thêm sản phẩm thành công!'); window.location='admin_add_product.php';</script>";
 }else {
     //Nếu thất bại hiển thị lỗi kỹ thuật của MySQL
-    echo "Lỗi: " .mysqli_error($conn);
+    echo "Lỗi: " . mysqli_error($conn);
 
 }
     
@@ -48,6 +49,7 @@ if (mysqli_query($conn,$sql)){
         <option value="1">Gấu bông</option>
         <option value="2">Móc khóa</option>
         <option value="3">Gốm sứ</option>
+         <option value="3">Quà tặng</option>
     </select>
     <button type="submit" name="add_product" style="backgroud:#2ecc71; color:white; border:none; padding:10px;">Lưu sản phẩm</button>
     <a href="index.php" style="text-align:center;">Quay lại trang chủ</a>
