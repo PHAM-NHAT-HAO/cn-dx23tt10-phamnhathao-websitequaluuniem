@@ -14,3 +14,7 @@
 - Phát triển Trang tổng quan Admin (`admin.php`).
 - Hoàn thiện luồng Thanh toán và Trừ kho tự động (`checkout.php` & `process_checkout.php`).
 - Khắc phục chuỗi lỗi vận hành trên Form Admin (`admin_add_product.php`)
+**Ngày báo cáo:** 29/05/2026
+**Sinh viên thưc hiện:** Phạm Nhật Hào
+- Thay đổi cấu trúc hiển thị trang chủ: Thay vì đổ toàn bộ sản phẩm ra một cách đại trà, hệ thống cần tự động nhóm các sản phẩm lại theo từng Danh mục cha (Ví dụ: Gấu bông, Thiệp & Văn phòng phẩm, Ly sứ...).
+- Tạo cụm Banner đầu trang 

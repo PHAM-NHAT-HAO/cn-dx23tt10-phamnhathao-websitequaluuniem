@@ -108,6 +108,17 @@ $result = mysqli_query($conn, $sql);
     .dropdown:hover .dropdown-menu{
         display: block;
     }
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap');
+    .banner-block:hover{
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(255, 107, 129, 0.15);
+    }
+    .banner-block img{
+        transition: transform 0.6 ease;
+    }
+    .banner-block:hover img{
+        transform: scale(1.04); /*Phóng to ảnh nhẹ nhàng khi hover */
+    }
     </style>
 </head>
 <body class="bg-light text-dark">
@@ -181,10 +192,66 @@ $result = mysqli_query($conn, $sql);
 
     </div>
   </nav>
+  <div class="container my-4">
+    <div class="row g-3">
+        <div class=" col-lg-8">
+            
+            <div class="banner-block position-relative overflow-hidden shadow-sm h-100">
+                <img src="images/banner-main.jpg" class="w-300 h-100" style="object-fit: cover; min-height: 350px;" alt="Dive into Summer Banner" >
+
+            </div>
+
+        </div>
+
+        <div class=" col-lg-4 d-flex flex-column gap-3">
+            <div class="banner-block overflow-hidden shadow-sm flex-fill">
+                <img src="images/banner-sub1.jpg" class="w-100 h-100" style="object-fit: cover; min-height: 165px;" alt="Banner Phụ 1" >
+
+            </div>
+            <div class="banner-block overflow-hidden shadow-sm flex-fill">
+                <img src="images/banner-sub2.jpg" class="w-100 h-100" style="object-fit: cover; min-height: 165px;" alt="Banner Phụ 2" >
+
+            </div>
+
+        </div>
+
+    </div>
+                   
   
-<?php
-// Kiểm tra xem trong Database có dòng dữ liệu nào không
+  <?php
+  $query_categories = "SELECT * FROM categories";
+  $result_cat = mysqli_query($conn, $query_categories);
+
+ // Lấy ra danh mục trước
+$query_categories = "SELECT * FROM categories";
+$result_categories = mysqli_query($conn, $query_categories);
+
+// 1. Kiểm tra xem có sản phẩm nào trong hệ thống nói chung không 
+if (mysqli_num_rows($result_cat) > 0):
+    
+    // 2. Chạy vòng lặp danh mục lớn
+    while ($cat = mysqli_fetch_assoc($result_cat)):
+        $cat_id = $cat['id'];
+        $cat_name = $cat['NAME'];
+        
+        // Lấy sản phẩm của danh mục hiện tại
+        $query = "SELECT * FROM products WHERE category_id = '$cat_id' ORDER BY id DESC LIMIT 4";
+        $result = mysqli_query($conn, $query);
+  // Kiểm tra xem trong Database có dòng dữ liệu nào không
 if (mysqli_num_rows($result)>0):?>
+<div class="row mt-5 mb-3">
+                    <div class="col-12">
+                        <h3 class="text-dark fw-bold border-bottom pb-2 m-0" style="font-family: 'Quicksand', sans-serif;">
+                            🎯 <?php echo $cat_name; ?>
+                        </h3>
+                    </div>
+                </div>
+
+  
+  
+
+
+
 
 <?php if ($search != ""):?>
     <div class="col-12 mb-3">
@@ -193,10 +260,13 @@ if (mysqli_num_rows($result)>0):?>
     </div>
     <?php endif; ?>
     
-    
-        <div class="row">
+    <div class="container mt-5">
+        <div class="row g-3">
+
         <!-- Dùng vòng lặp while để lấy từng dòng dữ liệu ra dưới dạng mảng $row-->
-        <?php while($row = mysqli_fetch_assoc($result)):?> 
+        <?php 
+       
+        while($row = mysqli_fetch_assoc($result)):?> 
 
 
 <div class="col-lg-3 col-md-6 mb-4">
@@ -214,12 +284,23 @@ if (mysqli_num_rows($result)>0):?>
           </a>
             <a href="product_detail.php?id=<?php echo $row['id']; ?>" class="btn btn-primary flex-fill d-flex align-items-center justify-content-center text-nowrap py-2 " style="height: 42px; ">
                 Chi tiết</a>
-        </div>
+               </div>
 </div>
-</div>
-        </div>
+         </div>
+
+          </div>
+
 <?php endwhile; ?>
+         
+<?php endif; // 2. Đóng lệnh kiểm tra sản phẩm của danh mục hiện tại
+endwhile;
+
+// 3. Đóng vòng lặp danh mục lớn ($cat)
+?>
 </div>
+
+
+
 <?php else: ?>
 <div class="col-12 text-center py-5">
   <h1 style="font-size: 100px;">🔍</h1>  <h2 class="text-muted">
@@ -232,6 +313,7 @@ if (mysqli_num_rows($result)>0):?>
 
 
 </div>
+
 
 
     

@@ -83,3 +83,6 @@ Dự án bao gồm 4 bảng chính:
 - `config.php`: Khởi tạo kết nối kết nối giữa mã nguồn PHP và cơ sở dữ liệu MySQL.
 - `process_checkout.php`: File xử lý hậu đài quan trọng nhất của luồng mua hàng. Nhận dữ liệu đơn, chèn thông tin vào bảng `orders`, giải nén giỏ hàng để ghi nhận vào `order_details`, và tự động trừ số lượng hàng tồn kho.
 - `add_to_cart.php` & `update_cart.php`: Xử lý thêm mới và cập nhật số lượng sản phẩm trong giỏ hàng.
+- **Tuần 5 (29/05/2026):**
+- Thay đổi cấu trúc hiển thị trang chủ: Thay vì đổ toàn bộ sản phẩm ra một cách đại trà, hệ thống cần tự động nhóm các sản phẩm lại theo từng Danh mục cha (Ví dụ: Gấu bông, Thiệp & Văn phòng phẩm, Ly sứ...).
+- Tạo cụm Banner đầu trang
