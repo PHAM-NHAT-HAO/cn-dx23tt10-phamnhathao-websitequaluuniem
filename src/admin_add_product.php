@@ -50,6 +50,7 @@ if (mysqli_query($conn,$sql)){
         <option value="2">Móc khóa</option>
         <option value="3">Gốm sứ</option>
          <option value="3">Quà tặng</option>
+          <option value="3">Thiệp & văn phòng phẩm</option>
     </select>
     <button type="submit" name="add_product" style="backgroud:#2ecc71; color:white; border:none; padding:10px;">Lưu sản phẩm</button>
     <a href="index.php" style="text-align:center;">Quay lại trang chủ</a>

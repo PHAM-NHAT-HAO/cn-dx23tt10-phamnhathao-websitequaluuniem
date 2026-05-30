@@ -149,7 +149,7 @@ tr:hover {background-color: #f1f2f6; }
                     <?php while($product = mysqli_fetch_assoc($result_products)): ?>
                         <tr>
                             <td>#<?php echo $product['id']; ?></td>
-                            <td><img src="img/<?php echo $product['image']; ?>" width="40" height="40" style="border-radius:4px; object-fit:cover;" onerror="this.src='https://placehold.co/40'"></td>
+                            <td><img src="images/<?php echo $product['image']; ?>" width="40" height="40" style="border-radius:4px; object-fit:cover;" onerror="this.src='https://placehold.co/40'"></td>
                             <strong><td><?php echo $product['name']; ?></td></strong>
                             <td><?php echo $product['category_name']; ?></td>
                             <td><?php echo number_format($product['price'], 0, ',', '.'); ?>đ</td>

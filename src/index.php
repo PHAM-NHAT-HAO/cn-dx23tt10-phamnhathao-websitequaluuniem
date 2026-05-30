@@ -151,13 +151,27 @@ $result = mysqli_query($conn, $sql);
                     <a class="nav-link active" href="index.php">Trang chủ</a>
 
                 </li>
-                <li class="dropdown">
-                    <a class="dropdown-toggle" href="products_page.php"> Sản phẩm</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="products_page.php?category_id=1">🧸 Gấu bông</a></li>
-                        <li><a href="products_page.php?category_id=2">🎁 Quà tặng</a></li>
-                        <li><a href="products_page.php?category_id=3">💍 Trang sức</a></li>
-                        <li><a href="products_page.php?category_id=4">🎀 Phụ kiện</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle fw-bold text-dark" href="category_detail.php" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sản phẩm</a>
+                    <ul class="dropdown-menu shadow" aria-labelledby="navbarDropdown">
+                        
+                        <li><hr class="dropdown-divider"></li>
+
+                        <?php 
+                        //Tự động lấy các dnah mục hiẹn có từ Database đổ vào menu
+                        $query_menu_cats ="SELECT * FROM categories";
+                        $result_menu_cats = mysqli_query($conn, $query_menu_cats);
+                        while ($menu_cat = mysqli_fetch_assoc($result_menu_cats)):
+                        ?>
+                        <li>
+                            <a class="dropdown-item" href="category_detail.php?id=<?php echo $menu_cat['id']; ?>">
+                                🎯 <?php echo $menu_cat['NAME']; ?>
+                            </a>
+                        </li>
+                        <?php endwhile; ?>
+
+                       <li><a class="dropdown-item fw-bold text-primary" href="category_detail.php">Xem tất cả sản phẩm</a></li> 
 
                     </ul>
 
@@ -227,7 +241,7 @@ $query_categories = "SELECT * FROM categories";
 $result_categories = mysqli_query($conn, $query_categories);
 
 // 1. Kiểm tra xem có sản phẩm nào trong hệ thống nói chung không 
-if (mysqli_num_rows($result_cat) > 0):
+$tong_san_pham = 0;
     
     // 2. Chạy vòng lặp danh mục lớn
     while ($cat = mysqli_fetch_assoc($result_cat)):
@@ -235,15 +249,23 @@ if (mysqli_num_rows($result_cat) > 0):
         $cat_name = $cat['NAME'];
         
         // Lấy sản phẩm của danh mục hiện tại
-        $query = "SELECT * FROM products WHERE category_id = '$cat_id' ORDER BY id DESC LIMIT 4";
+        $query = "SELECT * FROM products WHERE category_id = '$cat_id' AND name LIKE '%$search%' ORDER BY id DESC LIMIT 4";
         $result = mysqli_query($conn, $query);
   // Kiểm tra xem trong Database có dòng dữ liệu nào không
+  $tong_san_pham += mysqli_num_rows($result);
 if (mysqli_num_rows($result)>0):?>
-<div class="row mt-5 mb-3">
-                    <div class="col-12">
+
+<div class="row mt-5 mb-3 border-bottom pb-2 align-items-center">
+                    <div class="col-8">
                         <h3 class="text-dark fw-bold border-bottom pb-2 m-0" style="font-family: 'Quicksand', sans-serif;">
                             🎯 <?php echo $cat_name; ?>
                         </h3>
+                    </div>
+                    <div class="col-4 text-end">
+                        <a href="category_detail.php?id=<?php echo $cat_id; ?>" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold">
+                            Xem tất cả<i class="bi bi-chevron-right"></i>
+                        </a>
+
                     </div>
                 </div>
 
@@ -301,7 +323,8 @@ endwhile;
 
 
 
-<?php else: ?>
+
+<?php if ($tong_san_pham == 0): ?>
 <div class="col-12 text-center py-5">
   <h1 style="font-size: 100px;">🔍</h1>  <h2 class="text-muted">
     Không tìm thấy quà tặng nào tên là "<strong><?php echo $search; ?></strong>"
@@ -314,6 +337,53 @@ endwhile;
 
 </div>
 
+<footer class="bg-dark text-white py-5 mt-5" style="font-family: 'Quicksand', sans-serif;">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <h5 class = "fw-bold text-primary mb-3">✨ SHOP QUÀ LƯU NIỆM</h5>
+                <p class="text-seconday small">Chuyên cung cấp các set quà tặng, gấu bông, ly sứ và phụ kiện lưu niệm độc đáo, mang trọn yêu thương đến người nhận.</p>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <h5 class="fw-bold mb-3">🎯 Khám Phá</h5>
+                <ul class="list-unstyled text-secondary small">
+                    <li class="mb-2"><a href="index.php" class="text-decoration-none text-secondary">Trang chủ</a> </li>
+                    <li class="mb-2"><a href="category_detail.php" class="text-decoration-none text-secondary">Sản Phẩm</a> </li>
+                    <li class="mb-2"><a href="contact.php" class="text-decoration-none text-secondary">Liên Hệ</a></li>
+
+                </ul>
+
+            </div>
+            <div class="col-lg-4 col-md-12">
+                 <h5 class="fw-bold mb-3">📍 Thông Tin Liên Hệ</h5>
+                 <p class="text-secondary small mb-2" ><i class="bi bi-geo-alt-fill me-2"></i>Khu vực Vũng Liêm, Vĩnh Long</p>
+                 <p class="text-secondary small mb-2" ><i class="bi bi-telephone-fill me-2"></i>0904567890</p>
+                 <p class="text-secondary small"><i class="bi bi-envelope-fill me-2"></i>support@shopquatang.com</p>
+
+            </div>
+
+        </div>
+        <hr class="border-secondary my-4" >
+
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="text-secondary small m-0" >&copy; 2026 Shop Quà Tặng. Tất cả quyền được bảo lưu.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end pt-2 pt-md-0">
+                <a href="#" class="text-white me-3"><i class="bi bi-facebook" ></i></a>
+                <a href="#" class="text-white me-3"><i class="bi bi-instagram" ></i></a>
+                <a href="#" class="text-white"><i class="bi bi-tiktok" ></i></a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</footer>
 
 
     

@@ -48,7 +48,7 @@ session_start();
                             <td>
                             <a href="update_cart.php?id=<?php echo $id; ?>&action=decrease" class="btn btn-outline-secondary me-2" >-</a>
                             <span><?php echo $item['quantity']; ?></span>
-                            <a href="add_to_cart.php?id=<?php echo $id; ?>" class="btn btn-outline-secondary me-2">+</a>
+                            <a href="update_cart.php?id=<?php echo $id; ?>&action=increase" class="btn btn-outline-secondary me-2">+</a>
 
                         </td>
                             <td>
