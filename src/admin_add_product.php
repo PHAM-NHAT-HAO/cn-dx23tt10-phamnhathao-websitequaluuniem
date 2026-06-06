@@ -34,16 +34,17 @@ if (mysqli_query($conn,$sql)){
     <title>Thêm sản phẩm mới</title>
     <style>
         /* Css đơn giản đê căn giữa và tạo khoảng cách cho form*/ 
-        form {width: 300px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;}
-        input, textarea, select {padding: 8px;}
+        form {width: 500px; margin: 20px auto; display: flex; flex-direction: column; gap: 10px;}
+        input, select {padding: 8px;}
+        
     </style>
 </head>
-<body>
-<h2 style="text-align: center;">Thêm sản phẩm mới</h2>
+<body style="background-color: #eaadad;">
+<h2 style=" text-align: center;">Thêm sản phẩm mới</h2>
 <form method="POST">
     <input type="text" name="name" placeholder="Tên sản phẩm" required>
     <input type="number" name="price" placeholder="Giá tiền" required>
-    <textarea name="description" placeholder="Mô tả sản phẩm"></textarea>
+    <textarea name="description" style="width: 95.5%; min-height: 200px; padding: 10px;font-size: 16px; "placeholder="Mô tả sản phẩm"></textarea>
     <input type="text" name="image" placeholder="Tên file ảnh">
     <select name="category_id">
         <option value="1">Gấu bông</option>
@@ -52,8 +53,8 @@ if (mysqli_query($conn,$sql)){
          <option value="3">Quà tặng</option>
           <option value="3">Thiệp & văn phòng phẩm</option>
     </select>
-    <button type="submit" name="add_product" style="backgroud:#2ecc71; color:white; border:none; padding:10px;">Lưu sản phẩm</button>
-    <a href="index.php" style="text-align:center;">Quay lại trang chủ</a>
+    <button href="admin_add_product.php" type="submit" name="add_product" style="background-color: #55ee09; color: black; border:none; border-radius: 5px; padding:10px 20px;">Lưu sản phẩm</button>
+    <a href="admin.php" style="background-color: #55ee09; color: black; text-align:center;border-radius: 5px; padding:10px 20px;">Quay lại trang chủ</a>
 </form>
 </body>
 </html>

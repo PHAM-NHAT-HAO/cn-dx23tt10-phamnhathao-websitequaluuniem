@@ -102,6 +102,10 @@ tr:hover {background-color: #f1f2f6; }
         <ul>
             <li class="active"><a href="#">📊 Bảng Điều Khiển</a></li>
             <li><a href="index.php" target="_blank">🏠 Xem Trang Chủ Web </a></li>
+            <li><a href="admin_add_product.php" target="_blank">➕ Thêm Sản Phẩm</a></li>
+            <li><a href="edit_product.php" target="_self"> ✏️ Sửa sản phẩm</a></li>
+            <li><a href="delete_product.php" target="_self">🗑️ Xóa sản phẩm</a></li>
+            <li><a href="admin.php" target="_self">🏠 Admin</a></li>
             <li ><a href="login.php?action=logout" style="color: #e74c3c; font-weight: bold;">🚪 Đăng Xuất</a></li>
         </ul>
 
@@ -142,6 +146,7 @@ tr:hover {background-color: #f1f2f6; }
                     <th>Giá Bán</th>
                     <th>Số Lượng Kho</th>
                     <th>Trạng Thái</th>
+                    <th>Sửa</th>
                         
                     </tr>
                 </thead>
@@ -160,7 +165,10 @@ tr:hover {background-color: #f1f2f6; }
                                 <?php else: ?>
                                     <span class="badge danger">Sắp hết hàng!</span>
                                 <?php endif; ?>
+                                <td>
+                                <a href="edit_product.php?id=<?php echo $product['id']; ?>" style="background-color: #ffc107; color: black; padding: 5px 10px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block; margin-right: 5px;">Sửa ✏️</a>
                             </td>
+                                </td>
                         </tr>
                         <?php endwhile; ?>
                 </tbody>

@@ -95,3 +95,13 @@ Dự án bao gồm 4 bảng chính:
 - Phân tích & Thiết kế (Chương 3): Hoàn thiện Lược đồ lớp (Class Diagram), Sơ đồ Use Case, Sơ đồ tuần tự (Sequence Diagram) cho tính năng Tăng/Giảm giỏ hàng, và bản vẽ phác thảo giao diện thô (Wireframe).
 - Hoàn thành chương 4 Kết quả thực nghiệm.
 - Hoàn thành chương 5 Kết luận và hướng phát triển: viết xong phần kết luận, tự đánh giá bản thân và hướng phát triển đề tài.
+- **Tuần 6 (6/6/2026):**
+- Hoàn thành file word và file Powerpoint để nộp.
+- Thêm hai tính năng cho trang web:
+- Chức Năng Chỉnh Sửa Sản Phẩm (`edit_product.php`):**
+    - Tự động truy vấn và đổ dữ liệu cũ (Data Binding) vào Form dựa trên ID sản phẩm từ URL.
+    - Xử lý upload tệp hình ảnh mới lên thư mục hệ thống `uploads/`. Tự động giữ nguyên ảnh cũ nếu Admin chỉ thay đổi thông tin dạng văn bản mà không cập nhật ảnh.
+- Chức Năng Xóa Sản Phẩm Độc Lập (`admin_delete_product.php`):**
+    - Xây dựng file điều hướng ngầm xử lý xóa dữ liệu tập trung qua phương thức `GET`.
+    - Xử lý triệt để lỗi nghẽn ràng buộc dữ liệu khóa ngoại (Foreign Key Constraint) bằng giải pháp chạy ngầm `SET FOREIGN_KEY_CHECKS = 0;` trước khi thực thi câu lệnh SQL `DELETE`.
+    - Tích hợp cơ chế điều hướng thông minh (`$redirect_page`): Tự động nhận biết nguồn trang bấm xóa (Trang chủ Admin hoặc Trang thống kê) để phản hồi quay lại đúng trang gốc ban đầu.
